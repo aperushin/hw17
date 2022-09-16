@@ -28,6 +28,16 @@ class Genre(db.Model):
     name = db.Column(db.String(255))
 
 
+class DirectorSchema(Schema):
+    id = fields.Integer(dump_only=True)
+    name = fields.String()
+
+
+class GenreSchema(Schema):
+    id = fields.Integer(dump_only=True)
+    name = fields.String()
+
+
 class MovieSchema(Schema):
     id = fields.Integer(dump_only=True)
     title = fields.String()
@@ -36,4 +46,6 @@ class MovieSchema(Schema):
     year = fields.Integer()
     rating = fields.Float()
     genre_id = fields.Integer()
+    genre = fields.Pluck(GenreSchema, 'name')
     director_id = fields.Integer()
+    director = fields.Pluck(DirectorSchema, 'name')
